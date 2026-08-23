@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  address: 0.0.0.0    # listen on all network interfaces, not just localhost — required for phone/APK access
+
+spring:
+  application:
+    name: music-app-backend
+
+  datasource:
+    url: jdbc:h2:file:./data/musicapp;AUTO_SERVER=TRUE
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update        # auto-creates/updates tables on every startup
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false           # not needed in dev — Hibernate auto-creates tables
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console       # browse tables at http://localhost:8080/h2-console
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+app:
+  jwt:
+    secret: DEV_ONLY_SECRET_CHANGE_IN_PRODUCTION_min_256_bits_long_string
+    access-token-expiry-ms: 900000
+    refresh-token-expiry-ms: 604800000
+  storage:
+    provider: local
+    local-path: ./uploads
+  cors:
+    allowed-origins: "*"    # dev only — permits every origin (localhost, LAN IP, tunnels, phone), matches any port/host
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.musicapp: DEBUG

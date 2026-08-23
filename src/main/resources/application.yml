@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: music-app-backend
+  profiles:
+    active: dev              # default: H2 auto-create DB, zero setup. Use "prod" for Postgres.
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    com.musicapp: DEBUG
+    org.springframework.security: INFO
